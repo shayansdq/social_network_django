@@ -4,7 +4,8 @@
 {% endblock %}
 {% block content %}
     <h2 class="text-center">{{ user.username }}</h2>
-    {% if requst.user.id %}
+    {% if request.user.id == user.id %}
+        <a href="{% url 'home:post_create' %}" class="btn btn-primary">Create</a>
     {% endif %}
     <div class="card">
         {% for post in posts %}

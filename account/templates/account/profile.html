@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html'%}
+{% block title %}
+    Profile | {{ user.username }}
+{% endblock %}
+{% block content %}
+    <h2 class="text-center">{{ user.username }}</h2>
+    {% if requst.user.id %}
+    {% endif %}
+    <div class="card">
+        {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}" class="card-body">{{ post.body | truncatewords:3 }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}

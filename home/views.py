@@ -90,5 +90,5 @@ class PostCreateView(LoginRequiredMixin, View):
             new_post.user = request.user
             new_post.save()
             messages.success(request, 'Your post was created successfully', 'success')
-            redirect('home:post_detail',new_post.id,new_post.slug)
+            return redirect('home:post_detail',new_post.id,new_post.slug)
 

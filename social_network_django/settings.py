@@ -126,3 +126,12 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/account/login/'
+
+# Google account
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'shayansadeghi178@gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = 'yvwmmuijqcwrhynz'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Shayan social Website'

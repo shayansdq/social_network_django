@@ -8,4 +8,43 @@
 
     <p><a href="{% url 'account:user_profile' post.user.id %}">{{ post.user.username }}</a> - {{ post.updated | date:'Y-M-d' }}</p>
     <p>{{ post.body }}</p>
+       <a href="{% url 'home:post_like' post.id %}" class="{% if can_like %}disabled{% endif %} btn btn-primary col-md-2">Like {{ post.likes_count }}</a>
+    <hr>
+    {% if request.user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Send" class="btn btn-primary">
+        </form><br>
+    {% else %}
+        <p class="alert alert-danger">Only logged-in users can comment.</p>
+    {% endif %}
+    {% if comments %}
+        <p>{{ comments | length }} Comments</p>
+    {% endif %}
+
+    {% for comment in comments %}
+        <div class="card bg-primary text-white">
+            <p class="card-header">{{ comment.user }} | {{ comment.created | timesince }}</p>
+            <p class="card-body">{{ comment.body}}</p>
+
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'home:add_reply' post.id comment.id %}" method="post">
+                    {% csrf_token %}
+                    {{ reply_form.as_p }}
+                    <input type="submit" value="Send">
+                </form>
+            {% endif %}
+
+            {% with replies=comment.rcomments.all %}
+                {% for reply in replies %}
+                    <p class="bg-dark p-3 m-2">{{ reply.user }}<br>{{ reply.body }}</p>
+                {% endfor %}
+            {% endwith %}
+        </div><br>
+    {% empty %}
+        <p>No comments yet ...</p>
+    {% endfor %}
+
+
 {% endblock %}

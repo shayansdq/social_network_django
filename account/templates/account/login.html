@@ -6,7 +6,8 @@
     <h2>Login User</h2>
     <form method="post" class="col-md-6" novalidate>
         {% csrf_token %}
-            {{ form.as_p }}
+        {{ form.as_p }}
         <input type="submit" value="Login">
     </form>
+    <a href="{% url 'account:reset_password' %}">Forgot password?</a>
 {% endblock %}
